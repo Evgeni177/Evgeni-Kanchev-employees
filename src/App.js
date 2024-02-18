@@ -2,7 +2,7 @@ import Papa from 'papaparse';
 import { useState, useEffect } from 'react';
 import './App.css';
 import EmployeesTable from './components/EmployeesTable';
-import { parseDateWithMultipleFormats } from './utils/parseDateWithMultipleFormats';
+import { parseDateWithMultipleFormats } from './utils/parseDateWithMultipleFormats/parseDateWithMultipleFormats';
 
 function App() {
   const [csvData, setCsvData] = useState(null);
