@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Evgeni-Kanchev-employees/static/css/main.bc852d46.css",
+    "main.js": "/Evgeni-Kanchev-employees/static/js/main.12eea489.js",
+    "static/js/453.00fac579.chunk.js": "/Evgeni-Kanchev-employees/static/js/453.00fac579.chunk.js",
+    "index.html": "/Evgeni-Kanchev-employees/index.html",
+    "main.bc852d46.css.map": "/Evgeni-Kanchev-employees/static/css/main.bc852d46.css.map",
+    "main.12eea489.js.map": "/Evgeni-Kanchev-employees/static/js/main.12eea489.js.map",
+    "453.00fac579.chunk.js.map": "/Evgeni-Kanchev-employees/static/js/453.00fac579.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bc852d46.css",
+    "static/js/main.12eea489.js"
+  ]
+}
