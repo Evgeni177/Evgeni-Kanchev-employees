@@ -35,7 +35,7 @@ function App() {
             };
             let key = `${emp2.EmpID}-${emp1.EmpID}`;
             if(!overlaps[key]) {
-              key = `${emp1.EmpID}-${emp2.EmpID}`
+              key = `${emp1.EmpID}-${emp2.EmpID}` // In case we have matching employess but with switched places like 112-118, 118-112, we want to sync them to be the same
             }
             if (!overlaps[key]) overlaps[key] = [];
             overlaps[key].push(overlapData);
