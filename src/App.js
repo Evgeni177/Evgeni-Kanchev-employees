@@ -27,7 +27,7 @@ function App() {
         return acc;
       }, {});
       console.log('projects', projects)
-      const overlaps = [];
+      const overlaps = {};
 
       Object.values(projects).forEach(project => {
         for (let i = 0; i < project.length; i++) {
@@ -36,13 +36,19 @@ function App() {
             const emp2 = project[j];
             const start = Math.max(emp1.DateFrom, emp2.DateFrom);
             const end = Math.min(emp1.DateTo, emp2.DateTo);
-
+      
             // Check if there's an overlap
             if (start < end) {
-              const overlapDays = (end - start) / (1000 * 60 * 60 * 24); // Convert ms to days
-              const data = `${emp1.EmpID}-${emp2.EmpID}-${emp1.ProjectID}-${overlapDays}`;
-
-              overlaps.push(data)
+              const overlapData = {
+                days: (end - start) / (1000 * 60 * 60 * 24),
+                projectId: emp1.ProjectID 
+              }; // Convert ms to days
+              let key = `${emp2.EmpID}-${emp1.EmpID}`;
+              if(!overlaps[key]) {
+                key = `${emp1.EmpID}-${emp2.EmpID}`
+              }
+              if (!overlaps[key]) overlaps[key] = [];
+              overlaps[key].push(overlapData);
             }
           }
         }
@@ -51,11 +57,15 @@ function App() {
       });
 
       let maxOverlap = { key: null, days: 0 };
-      Object.entries(overlaps).forEach(([key, days]) => {
-        if (days > maxOverlap.days) {
-          maxOverlap = { key, days };
-        }
+      Object.entries(overlaps).forEach(([key, values]) => {
+        console.log('vakues;m, ', values)
+        values.forEach(value =>  {
+          if(value.days > maxOverlap.days) {
+            maxOverlap = { key, days: value.days };
+          }
+        })
       });
+      setPairs({key: maxOverlap.key, values: overlaps[maxOverlap.key]})
       console.log('maxOverlap', maxOverlap)
     }
   }, [csvData]);
@@ -87,14 +97,16 @@ function App() {
               <th>Project ID</th>
               <th>Days worked</th>
             </tr>
-            {pairs.map((pair) => {
-              const [emp1, emp2, projectId, daysOverlap] = pair.split('-')
+            {console.log('pairdsssssssssss', pairs)}
+            {pairs.values.map((data) => {
+              const [emp1, emp2] = pairs.key.split('-')
+              const { days, projectId } = data;
               return (
-                <tr>
+                <tr key={data.key}>
                   <td>{emp1}</td>
                   <td>{emp2}</td>
                   <td>{projectId}</td>
-                  <td>{daysOverlap}</td>
+                  <td>{days}</td>
                 </tr>
               )
             })}
